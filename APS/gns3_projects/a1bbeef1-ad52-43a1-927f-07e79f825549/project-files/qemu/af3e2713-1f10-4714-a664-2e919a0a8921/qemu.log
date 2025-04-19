@@ -1,0 +1,4 @@
+Start QEMU with /usr/bin/qemu-system-x86_64 -name UbuntuCloudGuest-1 -m 1024M -smp cpus=1,maxcpus=1,sockets=1 -boot order=c -cdrom /data/images/QEMU/ubuntu-cloud-init-data.iso -drive file=/data/projects/a1bbeef1-ad52-43a1-927f-07e79f825549/project-files/qemu/af3e2713-1f10-4714-a664-2e919a0a8921/hda_disk.qcow2,if=virtio,index=0,media=disk,id=drive0 -uuid af3e2713-1f10-4714-a664-2e919a0a8921 -serial telnet:127.0.0.1:2009,server,nowait -monitor tcp:127.0.0.1:41751,server,nowait -net none -device virtio-net-pci,mac=0c:3e:27:13:00:00,speed=10000,duplex=full,netdev=gns3-0 -netdev socket,id=gns3-0,udp=127.0.0.1:10029,localaddr=127.0.0.1:10028 -display none
+
+Execution log:
+qemu-system-x86_64: terminating on signal 15 from pid 15 ([rosetta])
