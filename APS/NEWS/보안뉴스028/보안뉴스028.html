@@ -1,0 +1,137 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td
+        colspan="3"
+        style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center; font-family: '맑은 고딕'; font-size: 14pt;"><b>sudo의 치명적 권한 상승 취약점(CVE-2025-32463)</b></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-07-13</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">25_김영빈</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          min-height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; min-height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt; font-family: '맑은 고딕'; font-size: 11pt; line-height: 1.5;">
+        <p>최근 대부분의 Unix 기반 시스템에서 사용되는 <b>sudo</b> 유틸리티에서 치명적인 로컬 권한 상승 취약점(<b>CVE-2025-32463</b>)이 발견되어 시스템 관리자들의 즉각적인 주의가 요구됩니다. 이 취약점은 CVSS 점수 9.3(Critical)으로 평가되었으며, 로컬 접근 권한을 가진 공격자가 손쉽게 시스템의 <b>root</b> 권한을 탈취할 수 있도록 허용합니다.</p>
+        <p><b>이슈/취약점 정의:</b> <b>CVE-2025-32463</b>은 <b>sudo</b>의 <b>--chroot (-R)</b> 옵션 처리 과정에 존재하는 논리적 결함으로 인해 발생하는 <b>권한 상승(Elevation of Privilege, EoP)</b> 취약점입니다.</p>
+        <p><b>영향도:</b> 공격자는 이 취약점을 악용하여 현재 자신의 권한 수준과 무관하게 영향을 받는 시스템의 완전한 제어권을 의미하는 <b>root</b> 권한을 획득할 수 있습니다.</p>
+        <p><b>공격 원리:</b> 공격은 <b>sudo</b>가 <b>--chroot</b> 옵션으로 지정된 디렉터리 내에서 명령을 실행하는 방식을 악용합니다. 취약점의 핵심 원인은 <b>sudo</b>가 <b>sudoers</b> 정책 파일의 유효성을 완전히 검사하기 전에, 공격자가 제어하는 chroot 환경 내의 <b>/etc/nsswitch.conf</b> 파일을 먼저 읽는다는 점입니다. 공격자는 악의적으로 조작된 <b>nsswitch.conf</b> 파일과 공유 라이브러리(<b>.so</b> 파일)를 포함하는 가짜 루트 디렉터리를 생성합니다. 이후 <b>sudo -R /path/to/fake_root &lt;command&gt;</b> 명령을 실행하면, <b>sudo</b>는 root 권한으로 실행되면서 공격자가 만든 설정 파일을 읽고 악성 공유 라이브러리를 로드하게 됩니다. 이 라이브러리에 포함된 코드는 즉시 root 권한으로 실행되어 공격자에게 루트 쉘을 제공합니다.</p>
+        <p><b>영향 범위:</b> 이 취약점은 <b>sudo</b> 버전 <b>1.9.14</b>부터 <b>1.9.17</b>까지에 영향을 미칩니다. <b>Ubuntu, Fedora, SUSE</b> 등 주요 <b>Linux</b> 배포판과 <b>macOS</b>가 영향권에 포함됩니다.</p>
+        <p><b>실제 공격 발생 여부:</b> 취약점 공개와 함께 매우 안정적이고 실행이 간단한 <b>개념 증명(Proof-of-Concept, PoC)</b> 코드가 공개되어, 누구든지 쉽게 공격을 재현할 수 있는 상황입니다.</p>
+        <p><b>권고 해결책:</b> 가장 중요한 해결책은 <b>sudo</b>를 취약점이 해결된 <b>1.9.17p1</b> 이상의 버전으로 즉시 업데이트하는 것입니다. <b>Ubuntu, Red Hat, SUSE</b> 등 각 운영체제 벤더에서 제공하는 보안 패치를 확인하고 적용해야 합니다. 즉각적인 패치가 어려운 경우, <b>/etc/sudoers</b> 설정에서 <b>--chroot</b> 옵션 사용을 금지하고, 비정상적인 <b>sudo -R</b> 명령어 사용을 모니터링하는 임시 조치를 취할 수 있습니다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          min-height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; min-height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt; font-family: '맑은 고딕'; font-size: 11pt; line-height: 1.5;">
+        <p><b>CVE-2025-32463:</b> sudo 유틸리티의 --chroot 옵션 처리 과정에 존재하는 논리적 결함을 이용한 로컬 권한 상승 취약점.</p>
+        <p><b>권한 상승(EoP):</b> 낮은 권한을 가진 공격자가 시스템의 관리자(root) 권한 등 더 높은 수준의 권한을 획득하는 공격 기법.</p>
+        <p><b>chroot:</b> 특정 프로세스와 그 자식 프로세스들의 루트 디렉터리를 격리된 경로로 변경하는 기능. 이 취약점에서는 공격자가 제어하는 환경을 만드는 데 악용됨.</p>
+        <p><b>nsswitch.conf:</b> 시스템이 사용자, 그룹 등 이름 정보를 조회할 소스와 순서를 정의하는 설정 파일. 공격자는 이 파일을 변조하여 악성 라이브러리를 로드하게 만듦.</p>
+        <p><b>Proof-of-Concept (PoC):</b> 취약점이 실재하고 공격이 가능함을 증명하기 위해 작성된 코드. 이 취약점의 PoC는 공개되어 위험도가 높음.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련분야</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">취약점 분석, 시스템 보안, 운영체제 보안</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          min-height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">출처</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; min-height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt; font-family: '맑은 고딕'; font-size: 10pt; line-height: 1.4;">
+        NVD: https://nvd.nist.gov/vuln/detail/CVE-2025-32463<br>
+        Red Hat: https://access.redhat.com/security/cve/cve-2025-32463<br>
+        Oligo Security: https://www.oligo.security/blog/new-sudo-vulnerabilities-cve-2025-32462-and-cve-2025-32463<br>
+        Upwind Security: https://www.upwind.io/feed/cve%E2%80%912025%E2%80%9132463-critical-sudo-chroot-privilege-escalation-flaw<br>
+        Tech Zealots: https://tech-zealots.com/vulnerability-research/cve-2025-32463-sudo-exploit-detection-remediation-guide/<br>
+        SocPrime: https://socprime.com/blog/cve-2025-32463-and-cve-2025-32462-vulnerabilities/<br>
+        Ubuntu Security: https://ubuntu.com/security/CVE-2025-32463<br>
+        AhnLab ASEC: https://asec.ahnlab.com/en/88809/<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  

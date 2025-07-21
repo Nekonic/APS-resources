@@ -1,0 +1,132 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td
+        colspan="3"
+        style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong><span style="font-family: '맑은 고딕'; font-size: 14pt;">MS, 치명적 원격 데스크톱 클라이언트 취약점(CVE-2025-48817) 긴급 패치</span></strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-07-20</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">25_김영빈</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></strong></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;">마이크로소프트(MS)는 2025년 7월 8일 정기 보안 업데이트(패치 튜즈데이)를 통해 윈도우 원격 데스크톱 클라이언트(RDP)에 존재하는 심각한 원격 코드 실행(RCE) 취약점, <strong>CVE-2025-48817</strong>을 해결했다고 발표했다.</span></p>
+        <p><br></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;"><strong>취약점 상세 분석: 클라이언트가 서버를 공격한다?</strong></span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;">일반적으로 RDP 취약점은 서버 측의 결함을 노리지만, 이번 CVE-2025-48817은 반대로 <strong>클라이언트 측의 결함</strong>을 이용한다. 이는 <strong>'경로 탐색(Path Traversal)'</strong> 취약점으로, 사용자가 악의적으로 조작된 RDP 서버에 접속할 경우, 공격자가 클라이언트(사용자) PC의 폴더 경로 제한을 우회하여 임의의 코드를 실행할 수 있게 한다.</span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;">공격 시나리오는 매우 간단하다. 공격자는 피싱 메일이나 사회공학적 기법을 통해 사용자를 속여 자신이 만들어 놓은 악성 RDP 서버에 접속하도록 유도한다. 사용자가 해당 서버에 접속하는 순간, 취약점이 발동하여 사용자 PC에 악성코드가 설치되거나 시스템이 원격으로 제어될 수 있다. 이 공격은 별도의 관리자 권한 획득 과정 없이도 이루어질 수 있어 더욱 위험하다.</span></p>
+        <p><br></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;"><strong>영향 및 대응 방안</strong></span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;">이 취약점은 Windows 10, Windows 11을 포함한 광범위한 윈도우 버전에 영향을 미친다. 원격 근무와 서버 관리 등으로 RDP 사용이 보편화된 만큼, 사용자들의 각별한 주의가 필요하다.</span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 11pt;">MS는 7월 패치 튜즈데이를 통해 보안 업데이트를 배포했다. 모든 윈도우 사용자는 즉시 <strong>[설정] > [Windows 업데이트]</strong> 메뉴를 통해 시스템을 최신 상태로 유지해야 한다. 또한, 신뢰할 수 없는 RDP 서버 정보나 접속 링크는 절대로 클릭하지 않는 보안 습관이 중요하다.</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></strong></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;"><strong>CVE-2025-48817:</strong> MS 원격 데스크톱 클라이언트의 경로 탐색 취약점. 사용자가 악성 서버에 접속 시, 클라이언트 PC에서 원격 코드 실행을 유발한다.</span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;"><strong>원격 데스크톱 프로토콜(RDP):</strong> 네트워크를 통해 원격지 컴퓨터를 제어하기 위한 MS의 통신 규약이다.</span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;"><strong>경로 탐색(Path Traversal):</strong> 공격자가 파일 경로를 조작하여('../' 등) 접근이 제한된 상위 폴더나 다른 위치의 파일에 접근하는 공격 기법이다.</span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;"><strong>원격 코드 실행(RCE):</strong> 공격자가 원격에서 대상 시스템의 제어권을 탈취해 임의의 명령을 실행하는 가장 심각한 수준의 공격이다.</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련분야</span></strong></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">시스템 해킹, 네트워크 보안</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong><span style="font-family: '맑은 고딕'; font-size: 12pt;">출처</span></strong></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;">Devolutions Blog (July 17, 2025)</span><br /><span style="font-family: '맑은 고딕'; font-size: 10pt;"><a href="https://blog.devolutions.net/2025/07/tech-news-serious-vulnerability-found-in-microsoft-remote-desktop-client-cve-2025-48817/">https://blog.devolutions.net/2025/07/...</a></span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;">ZEROPATH (July 8, 2025)</span><br /><span style="font-family: '맑은 고딕'; font-size: 10pt;"><a href="https://zeropath.com/blog/cve-2025-48817-windows-rdp-path-traversal">https://zeropath.com/blog/cve-2025-48817...</a></span></p>
+        <p><span style="font-family: '맑은 고딕'; font-size: 10pt;">Windows Forum (July 9, 2025)</span><br /><span style="font-family: '맑은 고딕'; font-size: 10pt;"><a href="https://windowsforum.com/threads/cve-2025-48817-critical-windows-rdp-vulnerability-threatening-client-security.372925/">https://windowsforum.com/threads/cve-2025-48817...</a></span></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
