@@ -1,0 +1,129 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td
+        colspan="3"
+        style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong>Microsoft SharePoint Server 원격 코드 실행 취약점 (CVE-2025-53770) 분석</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-07-31</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>25_김영빈</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>2025년 7월, 'ToolShell'이라는 별칭으로 알려진 심각한 제로데이 취약점(CVE-2025-53770)이 Microsoft SharePoint Server에서 발견되었다.</p>
+        <p>이 취약점은 인증되지 않은 원격 공격자가 서버의 완전한 제어권을 획득할 수 있게 하는 원격 코드 실행(RCE) 결함이다. CVSS 3.1 기준 9.8점(치명적)으로 평가되어 매우 높은 위험도를 가진다.</p>
+        <p>공격의 핵심 원인은 신뢰할 수 없는 데이터에 대한 '부적절한 역직렬화' 과정에 있다. 공격자는 조작된 데이터를 서버로 전송하여 서버가 이를 처리하는 과정에서 악성 코드를 실행시킨다.</p>
+        <p>특히 'ToolShell' 공격은 단순히 코드를 실행하는 것을 넘어, 서버의 암호화 키를 탈취하는 기능을 포함한다. 이는 공격자가 초기 패치가 적용된 이후에도 지속적으로 서버에 접근할 수 있는 '백도어'를 확보하게 만들어 피해를 심화시킨다. 이미 Storm-2603과 같은 공격 그룹이 이 취약점을 랜섬웨어 배포에 악용하고 있는 정황이 포착되었다.</p>
+        <p>미국 CISA는 이 취약점을 '알려진 악용된 취약점(KEV)' 목록에 추가하며 즉각적인 대응을 촉구했다. Microsoft는 긴급 보안 업데이트를 배포했으며, 추가적인 방어 조치로 AMSI(Antimalware Scan Interface) 통합 기능 활성화를 권고하고 있다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>CVE-2025-53770 ('ToolShell'):</strong> Microsoft SharePoint Server의 치명적인 원격 코드 실행 제로데이 취약점이다.</p>
+        <p><strong>원격 코드 실행(RCE):</strong> 공격자가 원격지에서 대상 시스템에 임의의 명령이나 코드를 실행하는 공격 유형이다.</p>
+        <p><strong>제로데이 취약점:</strong> 보안 패치가 발표되기 전에 외부에 알려져 실제 공격에 악용되고 있는 보안 결함이다.</p>
+        <p><strong>역직렬화(Deserialization):</strong> 데이터 스트림이나 파일 형태의 데이터를 메모리 상의 객체로 변환하는 과정. 이 과정의 보안 결함은 심각한 취약점으로 이어진다.</p>
+        <p><strong>CISA KEV:</strong> 미국 사이버보안 및 인프라 보안국(CISA)이 관리하는, 실제 공격에 활발히 악용되는 것으로 확인된 취약점 목록이다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련 분야</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">취약점 분석, 시스템 관리, 사고 대응, 리버스 엔지니어링</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+    출처
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank">CISA Known Exploited Vulnerabilities</a><br/>
+        <a href="https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2025-53770" target="_blank">Microsoft Security Response Center - CVE-2025-53770</a><br/>
+        <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-53770" target="_blank">NIST NVD - CVE-2025-53770</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
