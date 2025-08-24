@@ -1,0 +1,134 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td
+        colspan="3"
+        style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;">WinRAR 제로데이 취약점, 실제 공격에 악용되며 긴급 업데이트 권고</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-08-12</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>25_김영빈</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>WinRAR의 치명적인 제로데이 취약점이 실제 공격에 악용되고 있다.</strong> CVE-2025-8088로 추적되는 이 취약점은 CVSS 점수 8.8의 고위험 등급이며, 경로 순회(Path Traversal) 공격을 통해 임의 코드 실행이 가능하다.</p>
+
+        <p><strong>공격 메커니즘:</strong> 공격자가 특별히 제작된 악성 아카이브 파일을 생성하면, WinRAR이 파일을 추출할 때 지정된 경로 대신 공격자가 정의한 경로를 사용하게 된다. 이를 통해 시스템의 민감한 위치(예: Windows 시작 폴더)에 악성 파일을 배치할 수 있으며, 시스템 재시작 시 자동으로 악성 코드가 실행된다.</p>
+
+        <p><strong>실제 공격 사례:</strong> 러시아 연계 해킹 그룹인 RomCom과 Paper Werewolf가 이 취약점을 적극 악용하고 있다. RomCom은 2025년 7월 18일부터 유럽과 캐나다의 금융, 제조업, 국방, 물류 기업들을 대상으로 공격을 수행했다. 이력서를 미끼로 한 피싱 이메일을 통해 악성 아카이브를 유포하며, SnipBot, RustyClaw, Mythic 에이전트 등 다양한 백도어를 설치한다.</p>
+
+        <p><strong>다크웹 거래:</strong> 흥미롭게도 "zeroplayer"라는 위협 행위자가 2025년 7월 7일 러시아어 다크웹 포럼 Exploit.in에서 이 WinRAR 제로데이 익스플로잇을 8만 달러에 판매했던 것으로 확인되었다. Paper Werewolf 그룹이 이를 구매하여 공격에 사용했을 가능성이 높다.</p>
+
+        <p><strong>기술적 세부사항:</strong> 이 취약점은 RAR 아카이브 생성 시 대체 데이터 스트림(Alternate Data Streams, ADS)을 포함한 파일을 만들 수 있다는 점을 악용한다. 이러한 스트림의 이름에는 상대 경로가 포함될 수 있으며, 임의의 페이로드를 담을 수 있다. 아카이브를 해제하거나 첨부 파일을 직접 열 때, 대체 스트림의 데이터가 디스크의 임의 디렉토리에 쓰여지게 된다.</p>
+
+        <p><strong>패치 현황:</strong> WinRAR 개발팀은 2025년 7월 31일 버전 7.13을 릴리스하여 이 취약점을 수정했다. 모든 사용자는 즉시 최신 버전으로 업데이트해야 한다. 또한 7-Zip도 유사한 심볼릭 링크 관련 취약점(CVE-2025-55188)을 패치한 25.01 버전을 배포했다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>CVE-2025-8088:</strong> WinRAR의 경로 순회 제로데이 취약점, CVSS 8.8 고위험 등급</p>
+        <p><strong>경로 순회(Path Traversal):</strong> 파일 시스템에서 제한된 디렉토리 밖의 파일에 접근하는 공격 기법</p>
+        <p><strong>대체 데이터 스트림(ADS):</strong> NTFS 파일 시스템의 기능으로, 하나의 파일에 여러 데이터 스트림 저장 가능</p>
+        <p><strong>RomCom/Paper Werewolf:</strong> 러시아 연계 APT 그룹들, 제로데이 취약점을 적극 활용</p>
+        <p><strong>제로데이 마켓:</strong> 다크웹에서 미공개 취약점이 거래되는 지하 경제</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련분야</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">취약점 분석, 악성코드 분석, APT 분석, 포렌식, 인시던트 대응</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        출처
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        The Hacker News<br/>
+        https://thehackernews.com/2025/08/winrar-zero-day-under-active.html
+      </td>
+    </tr>
+  </tbody>
+</table>
