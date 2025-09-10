@@ -1,0 +1,130 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td colspan="3" style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        ">
+        <p style="text-align: center;"><strong>Nx 빌드 시스템 패키지, AI 도구를 악용한 최초의 공급망 공격으로 침해</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        ">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-08-30</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>김영빈</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="
+          width: 83.24pt;
+          height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        ">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>주간 다운로드 수 400만 건을 자랑하는 인기 빌드 시스템 Nx가 2025년 8월 26일 오후 10시 32분(UTC)부터 약 5시간 20분간 악성코드로 침해되었다. 이번 공격은 AI CLI 도구(Claude, Gemini, Q)를 악용한 최초의 공급망 공격으로 기록되며, 수천 명의 개발자들이 피해를 입었다.</p>
+
+        <p><strong>공격 메커니즘:</strong><br>
+        공격자들은 GitHub Actions 워크플로우의 취약점을 이용해 npm 토큰을 탈취했다. 8월 21일 도입된 취약한 워크플로우가 pull request 제목을 통한 코드 인젝션을 허용했고, pull_request_target 트리거의 상승된 권한을 악용하여 publish.yml 파이프라인을 실행시켰다. 이 과정에서 npm 토큰이 공격자가 제어하는 웹훅으로 전송되었다.</p>
+
+        <p><strong>악성코드 동작:</strong><br>
+        패키지 설치 시 실행되는 telemetry.js 스크립트는 macOS와 Linux 시스템을 대상으로 다음과 같은 작업을 수행한다:<br>
+        • 암호화폐 지갑 파일 탐색 (MetaMask, Electrum, Ledger, Trezor 등)<br>
+        • GitHub 개인 액세스 토큰 및 npm 토큰 수집<br>
+        • SSH 개인 키(id_rsa) 및 환경 변수 탈취<br>
+        • AI CLI 도구를 이용한 민감한 파일 검색</p>
+
+        <p><strong>AI 도구 악용의 혁신성:</strong><br>
+        공격자들은 개발자 시스템에 설치된 AI 어시스턴트 CLI를 --dangerously-skip-permissions, --yolo, --trust-all-tools 등의 위험한 플래그와 함께 실행하여 파일시스템을 재귀적으로 스캔하고 민감한 파일 경로를 /tmp/inventory.txt에 기록하도록 했다. 이는 신뢰받는 도구를 공격의 공범으로 만든 전례 없는 기법이다.</p>
+
+        <p><strong>데이터 유출:</strong><br>
+        수집된 모든 데이터는 3중 base64 인코딩 후 피해자 계정에 's1ngularity-repository'라는 이름의 공개 GitHub 리포지토리를 생성하여 results.b64 파일로 업로드되었다. 공격자들은 지속성을 위해 ~/.bashrc와 ~/.zshrc 파일에 'sudo shutdown -h 0' 명령을 추가하여 새 터미널 세션에서 시스템 종료를 유발하도록 했다.</p>
+
+        <p><strong>2차 공격:</strong><br>
+        8월 28일 오후 8시(UTC)부터 유출된 자격 증명을 이용한 2차 공격이 시작되었다. 공격자들은 개인 리포지토리를 공개로 전환하고 's1ngularity-repository-{random-string}' 형식으로 이름을 변경했으며, 조직 리포지토리를 침해된 사용자 계정으로 포크했다.</p>
+
+        <p><strong>영향 범위:</strong><br>
+        19개의 악성 패키지 버전이 배포되었으며, VSCode의 Nx Console 확장프로그램(버전 18.63.x-18.65.x)도 영향을 받았다. GitHub는 8월 27일 오전 9시 5분(UTC)에 유출된 리포지토리를 비공개로 전환했지만, 그 전까지 9시간 이상 데이터가 공개적으로 노출되었다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="
+          width: 83.24pt;
+          height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        ">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>공급망 공격(Supply Chain Attack):</strong> 신뢰받는 소프트웨어 패키지를 통해 하위 사용자들을 공격하는 기법</p>
+        <p><strong>AI CLI 악용:</strong> Claude, Gemini, Q 등의 AI 명령줄 도구를 악성 목적으로 활용하는 새로운 공격 벡터</p><p><strong>pull_request_target:</strong> 표준 pull_request와 달리 상승된 권한으로 실행되는 GitHub Actions 트리거</p>
+        <p><strong>telemetry.js:</strong> Nx 패키지에 삽입된 악성 포스트 설치 스크립트</p></td>
+    </tr>
+    <tr>
+      <td style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        ">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련분야</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">공급망 보안, DevSecOps, AI 보안, 암호화폐 보안, 소프트웨어 패키지 관리, 취약점 분석</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        ">
+        출처
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        StepSecurity<br>
+        https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware
+      </td>
+    </tr>
+  </tbody>
+</table>
