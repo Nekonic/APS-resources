@@ -1,0 +1,146 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td
+        colspan="3"
+        style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;">KT 펜토셀 해킹 복합 보안사고 분석</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-09-13</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>김영빈</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>사건 개요</strong></p>
+        <p>2025년 8월 말부터 경기도 광명시와 서울 금천구 일대에서 발생한 KT 무단 소액결제 사건과 IMSI 유출 사고는 불법 초소형 기지국(펜토셀)을 악용한 신종 사이버 공격이다. 현재까지 확인된 소액결제 피해는 278건 1억 7천만원이며, 5,561명의 IMSI 정보가 유출되었다.</p>
+
+        <p><strong>기술적 분석</strong></p>
+        <p>공격자는 불법 펜토셀 2대를 설치하여 KT 통신망으로 위장한 후, 인근 KT 이용자들의 통신을 가로채 IMSI 정보를 수집했다. 특히 5G와 달리 암호화에 구조적 한계가 있는 LTE 네트워크 사용자만을 대상으로 했으며, 수집된 IMSI를 활용하여 ARS 인증을 우회한 소액결제 사기를 실행했다.</p>
+
+        <p>두 사건의 연관성은 매우 높다. 불법 기지국 신호를 수신한 1만 9천명 중 실제 IMSI가 유출된 5,561명에 소액결제 피해자 278명이 모두 포함되어 있어, 이는 우연의 일치가 아닌 체계적이고 계획적인 공격임을 보여준다.</p>
+
+        <p><strong>KT 특화 취약점</strong></p>
+        <p>KT는 다른 통신사 대비 압도적으로 많은 15만 7천대의 펜토셀을 운영하고 있다(SKT 7천대, LGU+ 2만 8천대). 이는 KT가 사용하는 1.8GHz 고대역 LTE 주파수 특성상 실내 음영이 많아 펜토셀 의존도가 높기 때문이다. 하지만 고객이 직접 설치하고 해지 시 수거도 부실한 관리 체계가 보안 허점으로 작용했다.</p>
+
+        <p><strong>파급효과와 은폐 의혹</strong></p>
+        <p>KT는 9월 1일 경찰로부터 피해 분석 의뢰를 받고도 4일간 방치했으며, "개인정보 유출은 없다"고 단언했다가 하루 만에 입장을 바꾸는 등 초기 대응이 부실했다. 현재 KT에 접수된 관련 문의가 9만 2천여건에 달해 아직 확인되지 않은 '그림자 피해'가 상당할 것으로 우려된다.</p>
+
+        <p><strong>대응 현황</strong></p>
+        <p>KT는 불법 기지국 신호를 수신한 전원에게 무료 유심 교체를 지원하고, 9월 12일부터 소액결제 시 생체인증이 필요한 PASS 인증을 의무화했다. 개인정보보호위원회는 구체적 유출 경위와 피해 규모를 조사 중이며, 경찰은 불법 기지국 실물 확보를 위한 수사를 진행하고 있다.</p>
+
+        <p><strong>장기적 영향</strong></p>
+        <p>이번 사건은 국내 통신사의 인프라 보안 전반을 재점검해야 할 필요성을 제기했다. 특히 펜토셀과 같은 소형 통신장비의 체계적 관리와 실시간 보안 모니터링 시스템 구축이 시급한 과제로 대두되었다. 더불어 통신사의 투명한 보안사고 공개와 신속한 대응 체계 확립이 중요한 과제가 되었다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>펨토셀(Femtocell):</strong> 실내 통신 음영 해소를 위한 초소형 기지국, 가정이나 사무실에 설치</p>
+        <p><strong>IMSI(International Mobile Subscriber Identity):</strong> 유심에 저장된 15자리 가입자 고유 식별번호</p>
+        <p><strong>IMSI Catcher:</strong> 가짜 기지국으로 위장하여 주변 휴대폰의 IMSI 정보를 수집하는 장비</p>
+        <p><strong>ARS 인증:</strong> 자동응답시스템을 통한 본인인증 방식, 소액결제에 주로 활용</p>
+        <p><strong>그림자 피해:</strong> 공식적으로 확인되지 않았지만 실제로는 피해를 입은 숨겨진 사례들</p>
+        <p><strong>워드라이빙(Wardriving):</strong> 차량을 이용해 이동하며 무선 네트워크 취약점을 찾는 해킹 기법</p>
+        <p><strong>LTE 다운그레이드 공격:</strong> 5G를 4G/3G로 강제 전환시켜 보안 수준을 낮추는 공격</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련분야</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">무선 통신보안, 모바일 포렌식, 금융보안, 개인정보보호, 사이버수사, RF 보안</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        출처
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        연합뉴스, 보안뉴스, 조선일보<br/>
+        https://www.yna.co.kr/view/AKR20250911126251017<br/>
+        https://www.chosun.com/economy/tech_it/2025/09/12/VYYAD3ZXEVD2PNMIDXXQSRKHNI/<br/>
+        https://www.boannews.com/media/view.asp?idx=139212
+      </td>
+    </tr>
+  </tbody>
+</table>
