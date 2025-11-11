@@ -1,0 +1,150 @@
+<table style="border-collapse: collapse; table-layout: fixed; border-top: none; border-left: none; border-bottom: none; border-right: none;">
+  <tbody>
+    <tr>
+      <td
+        colspan="3"
+        style="
+          width: 419.52pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p style="text-align: center;"><strong>CVE-2025-61932: LANSCOPE Endpoint Manager 원격 코드 실행 취약점</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 29.61pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">날짜</span><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">/</span><span style="font-family: '맑은 고딕'; font-size: 12pt;">작성자</span></p>
+      </td>
+      <td style="width: 162.48pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; letter-spacing: 0pt; font-size: 12pt;">2025-11-04</span></p>
+      </td>
+      <td style="width: 173.8pt; height: 29.61pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>25_김영빈</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 492.82pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">핵심 내용</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 492.82pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>취약점 개요</strong></p>
+        <p>Motex LANSCOPE Endpoint Manager의 클라이언트 프로그램(MR)과 탐지 에이전트(DA)에서 발견된 치명적 원격 코드 실행 취약점이다. CVSS 9.3점으로 평가되며, 통신 채널의 출처를 제대로 검증하지 않아 공격자가 특수 제작된 네트워크 패킷을 전송하여 SYSTEM 권한으로 임의 코드를 실행할 수 있다.</p>
+
+        <p><strong>공격 메커니즘</strong></p>
+        <p>LANSCOPE의 에이전트는 관리 서버로부터 명령을 받아 실행하는 구조인데, 이 과정에서 패킷의 출처를 검증하지 않는다. 공격자는 정상적인 관리 명령을 모방한 악의적 패킷을 제작하여 에이전트가 수신 대기 중인 포트로 전송하면, 에이전트는 이를 정당한 명령으로 간주하고 즉시 실행한다. 이는 마치 신뢰하는 상사의 목소리를 흉내 낸 전화 한 통으로 직원이 기밀 정보를 넘기는 것과 같다.</p>
+
+        <p><strong>실제 공격 사례</strong></p>
+        <p>중국 국가 지원 APT 그룹인 BRONZE BUTLER(일명 Tick)가 2025년 4월부터 이 제로데이 취약점을 악용해왔다. 이들은 2016년에도 일본의 다른 자산 관리 소프트웨어인 SKYSEA Client View의 제로데이를 악용한 전력이 있는 조직으로, 주로 일본 기업의 기밀 정보를 탈취하는 것을 목표로 한다. JPCERT/CC는 국내 고객 환경에서 2025년 4월 이후 특정 포트를 대상으로 한 비인가 패킷이 관측되었음을 확인했다.</p>
+
+        <p><strong>공격 인프라 및 악성코드</strong></p>
+        <p>공격자들은 38.54.56.57:443과 38.54.88.172:443를 C2(Command and Control) 서버로 사용했다. 침투 후에는 Gokcpdoor 백도어와 Havoc C2 프레임워크를 배치하여 지속적인 접근 권한을 확보했다. Gokcpdoor는 2023년 버전에서 발전하여 KCP 프로토콜 지원을 중단하고 멀티플렉싱 통신을 추가한 2025년 변종이 사용되었다. 일부 시스템에서는 Gokcpdoor 대신 Havoc 프레임워크가 배치되었으며, 두 악성코드 모두 OAED Loader를 통해 실행 흐름을 복잡하게 만들어 탐지를 회피했다.</p>
+
+        <p><strong>측면 이동 및 데이터 유출</strong></p>
+        <p>공격자들은 goddi(Go dump domain info)를 사용하여 Active Directory 정보를 수집하고, 백도어 터널을 통한 원격 데스크톱으로 측면 이동을 수행했다. 데이터 유출을 위해서는 7-Zip으로 파일을 압축한 후, file.io, LimeWire, Piping Server 등의 클라우드 스토리지 서비스를 통해 기밀 정보를 외부로 전송했다. 이러한 정상 서비스 남용은 보안 솔루션의 탐지를 우회하는 효과적인 방법이다.</p>
+
+        <p><strong>대응 조치</strong></p>
+        <p>CISA는 이 취약점을 KEV(Known Exploited Vulnerabilities) 카탈로그에 추가하고, 연방 기관들에게 2025년 11월 12일까지 패치를 완료할 것을 명령했다. 영향을 받는 버전은 9.4.7.1 이하이며, 9.3.2.7, 9.3.3.9, 9.4.0.5부터 9.4.7.3까지의 패치 버전이 제공된다. 중요한 점은 이 취약점이 클라이언트 측 컴포넌트에 있기 때문에, 관리 서버만 패치하는 것이 아니라 모든 엔드포인트의 MR 클라이언트와 DA 에이전트를 업데이트해야 한다는 것이다.</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 69.98pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">키워드 정리</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 69.98pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><strong>CVE-2025-61932:</strong> LANSCOPE Endpoint Manager의 통신 채널 검증 부족으로 인한 원격 코드 실행 취약점</p>
+        <p><strong>BRONZE BUTLER (Tick):</strong> 중국 국가 지원 APT 그룹으로 2010년부터 활동하며 일본 기업을 주요 타겟으로 삼는 조직</p>
+        <p><strong>Gokcpdoor:</strong> 프록시 연결 및 백도어 기능을 제공하는 악성코드로, 서버형과 클라이언트형 두 가지 변종이 존재</p>
+        <p><strong>CISA KEV:</strong> 실제 공격에 악용되고 있음이 확인된 취약점을 관리하는 미국 CISA의 Known Exploited Vulnerabilities 카탈로그</p>
+        <p><strong>SYSTEM 권한:</strong> Windows에서 가장 높은 권한으로, 운영체제의 핵심 기능을 제어할 수 있는 최고 권한</p>
+        <p><strong>C2 (Command and Control):</strong> 공격자가 침투한 시스템을 원격으로 제어하기 위한 명령 및 통제 서버</p>
+        <p><strong>제로데이 취약점:</strong> 공개되지 않아 패치가 없는 상태에서 공격에 악용되는 취약점</p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">관련분야</span></p>
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p><span style="font-family: '맑은 고딕'; font-size: 12pt;">취약점 분석, 악성코드 분석, 리버스 엔지니어링, 네트워크 보안, 침해사고 대응, 위협 인텔리전스</span></p>
+      </td>
+    </tr>
+    <tr>
+      <td
+        style="
+          width: 83.24pt;
+          height: 27.02pt;
+          padding: 1.41pt 5.1pt 1.41pt 5.1pt;
+          border-top: solid #000000 1.7pt;
+          border-left: solid #000000 1.7pt;
+          border-bottom: solid #000000 1.7pt;
+          border-right: solid #000000 1.7pt;
+          background: #dfeaf5;
+        "
+      >
+        출처
+      </td>
+      <td colspan="2" style="width: 336.28pt; height: 27.02pt; padding: 1.41pt 5.1pt 1.41pt 5.1pt; border-top: solid #000000 1.7pt; border-left: solid #000000 1.7pt; border-bottom: solid #000000 1.7pt; border-right: solid #000000 1.7pt;">
+        <p>SOC Prime - CVE-2025-61932 Exploitation Analysis<br/>
+        https://socprime.com/blog/cve-2025-61932-vulnerability-exploitation/</p>
+        <p>Sophos News - BRONZE BUTLER exploits Japanese asset management software vulnerability<br/>
+        https://news.sophos.com/en-us/2025/10/30/bronze-butler-exploits-japanese-asset-management-software-vulnerability/</p>
+        <p>Trellix - The Bug Report October 2025 Edition<br/>
+        https://www.trellix.com/blogs/research/the-bug-report-october-2025-edition/#cve-2025-61932</p>
+        <p>CISA - Known Exploited Vulnerabilities Catalog<br/>
+        https://www.cisa.gov/news-events/alerts/2025/10/22/cisa-adds-one-known-exploited-vulnerability-catalog</p>
+        <p>AhnLab ASEC - MOTEX Product Security Update Advisory<br/>
+        https://asec.ahnlab.com/en/90755/</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
