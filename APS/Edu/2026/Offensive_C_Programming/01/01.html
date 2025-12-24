@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offensive C Programming - Week 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. THE SETUP */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0d1117; /* Dark Terminal Background */
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 0;
+  place-items: center;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+}
+
+.slide-container {
+  align-items: center;
+  background-color: #161b22; /* Slightly lighter card bg */
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  width: 1280px;
+}
+
+/* Decorative terminal bar at top */
+.slide-container::before {
+  content: 'root@kali:~# ./offensive_c_programming';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #0d1117;
+  border-bottom: 1px solid #30363d;
+  color: #00ff41;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  opacity: 0.7;
+}
+
+.slide-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. TYPOGRAPHY */
+h1, h2, h3, h4 {
+  color: #ffffff;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Noto Sans KR', monospace; /* Monospace headers for code feel */
+}
+
+h1 { font-size: 58px; letter-spacing: -2px; }
+h2 { font-size: 48px; }
+h3 { font-size: 32px; color: #00ff41; /* Kali Green */ }
+
+p, li, td, th {
+  color: #c9d1d9;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.slide-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: left;
+  width: 100%;
+  border-left: 5px solid #00ff41;
+  padding-left: 20px;
+}
+
+.subtitle {
+  color: #8b949e;
+  font-size: 24px;
+  margin-top: 10px;
+  font-family: 'Inter', 'Noto Sans KR', sans-serif;
+}
+
+/* 3. LAYOUTS */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Title Slide */
+.title-layout { text-align: center; }
+.title-layout h1 { color: #00ff41; text-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
+.title-layout h1 span { color: #ffffff; }
+
+/* Section Title */
+.section-title-layout {
+  text-align: center;
+  border: 2px solid #30363d;
+  padding: 60px;
+  background: #0d1117;
+}
+
+/* Two Column Tiled */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  height: 100%;
+}
+.two-column.tiled > div {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.two-column.tiled h3 { margin-bottom: 15px; font-size: 26px; }
+
+/* Timeline */
+.timeline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    margin: 40px auto;
+    position: relative;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #30363d;
+    z-index: 0;
+}
+
+.timeline-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+    text-align: center;
+}
+
+.timeline-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #0d1117;
+    border: 2px solid #00ff41;
+    color: #00ff41;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.timeline-text h3 { 
+    font-size: 20px; 
+    margin: 0 0 8px 0; 
+    color: #fff; 
+}
+
+.timeline-text p { 
+    font-size: 16px; 
+    color: #8b949e; 
+    margin: 0;
+}
+
+/* Image Right (Modified for better alignment) */
+.image-right-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Give text slightly more space */
+  gap: 50px;
+  align-items: start; /* Changed from center to start to avoid weird overlap */
+  height: 100%;
+  padding-top: 20px;
+}
+
+/* Mock Editor CSS */
+.mock-editor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 400px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+}
+.editor-pane {
+    padding: 0;
+    border-right: 1px solid #30363d;
+    display: flex;
+    flex-direction: column;
+}
+.editor-pane:last-child { border-right: none; }
+.pane-header {
+    background: #21262d;
+    color: #8b949e;
+    padding: 10px 15px;
+    font-size: 12px;
+    border-bottom: 1px solid #30363d;
+}
+.pane-content {
+    padding: 15px;
+    color: #c9d1d9;
+    flex-grow: 1;
+}
+.c-syntax-keyword { color: #ff7b72; }
+.c-syntax-type { color: #79c0ff; }
+.c-syntax-num { color: #79c0ff; }
+.asm-syntax-instr { color: #d2a8ff; }
+.asm-syntax-reg { color: #79c0ff; }
+
+/* Memory Visual CSS */
+.memory-visual-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.memory-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.byte-box {
+    width: 80px;
+    height: 100px;
+    background: #0d1117;
+    border: 2px solid #00ff41;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: relative;
+}
+.byte-val { font-size: 28px; font-weight: bold; font-family: 'JetBrains Mono'; }
+.byte-addr { 
+    position: absolute; 
+    bottom: 5px; 
+    font-size: 12px; 
+    color: #8b949e; 
+    font-family: 'JetBrains Mono';
+}
+.arrow-label {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #8b949e;
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+}
+
+/* Tiled Icons */
+.tiled-content {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+.tile {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  flex: 1;
+  padding: 30px;
+  text-align: center;
+  border-radius: 8px;
+}
+.tile .icon { font-size: 48px; color: #00ff41; margin-bottom: 20px; }
+
+/* Table */
+.table-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0d1117;
+  border: 1px solid #30363d;
+}
+.table-layout th {
+  text-align: left;
+  padding: 15px;
+  border-bottom: 2px solid #00ff41;
+  color: #fff;
+  font-family: 'JetBrains Mono';
+}
+.table-layout td {
+  padding: 15px;
+  border-bottom: 1px solid #30363d;
+  font-family: 'JetBrains Mono';
+  font-size: 18px;
+}
+
+/* Highlight Numbers */
+.highlight-numbers-layout {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.highlight-number {
+  font-size: 120px;
+  color: #ff5f56; /* Alert Red */
+  font-family: 'JetBrains Mono';
+  font-weight: 700;
+  text-shadow: 0 0 20px rgba(255, 95, 86, 0.4);
+}
+.highlight-label { font-size: 24px; color: #fff; margin-top: 20px; }
+
+/* Styled Bullets (Fixed alignment) */
+.bullet-list ul { list-style: none; padding: 0; }
+.bullet-list li {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: flex-start; /* Changed from center to flex-start */
+  font-size: 22px;
+}
+.bullet-list i {
+  color: #00ff41;
+  width: 50px;
+  min-width: 50px; /* Prevent shrinking */
+  font-size: 28px;
+  text-align: center;
+  margin-right: 20px;
+  margin-top: 5px; /* Align icon with first line of text */
+}
+
+/* Formula */
+#formula-container {
+  font-size: 2rem;
+  color: #ff5f56;
+  margin: 20px 0;
+}
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide-container" id="slide1">
+    <div class="title-layout">
+        <h1>OFFENSIVE <span>C PROGRAMMING</span></h1>
+        <p class="subtitle" style="font-size: 32px; color: #00ff41;">1주차: Under the Hood</p>
+        <p style="margin-top: 40px; color: #8b949e;">빌드 프로세스, 메모리, 그리고 시스템의 심연</p>
+    </div>
+</div>
+
+<!-- Slide 2: Day 1 Intro -->
+<div class="slide-container" id="slide2">
+    <div class="section-title-layout">
+        <h2 style="color: #00ff41;">DAY 1</h2>
+        <h1>The Build Process</h1>
+        <hr style="border-color: #30363d; width: 100px; margin: 30px auto;">
+        <p>소스 코드부터 실행 파일(Executable)까지</p>
+    </div>
+</div>
+
+<!-- Slide 3: Timeline -->
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">GCC 파이프라인 (GCC Pipeline)</h2>
+    <div class="content-area">
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-step">
+                <div class="timeline-circle">1</div>
+                <div class="timeline-text">
+                    <h3>전처리</h3>
+                    <p>Pre-process (.i)</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-circle">2</div>
+                <div class="timeline-text">
+                    <h3>컴파일</h3>
+                    <p>Compile (.s)</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-circle">3</div>
+                <div class="timeline-text">
+                    <h3>어셈블</h3>
+                    <p>Assemble (.o)</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-circle">4</div>
+                <div class="timeline-text">
+                    <h3>링킹</h3>
+                    <p>Link (exe)</p>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 40px; font-style: italic;">"해커는 이 각 단계에서 무슨 일이 일어나는지 정확히 알아야 합니다."</p>
+    </div>
+</div>
+
+<!-- Slide 4: Deep Dive 1 & 2 -->
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">1단계 & 2단계: 텍스트에서 어셈블리로</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>1. 전처리 (Preprocessing)</h3>
+                <p style="font-family: 'JetBrains Mono'; color: #8b949e; font-size: 16px;">gcc -E hello.c -o hello.i</p>
+                <ul>
+                    <li>주석 삭제 (Comments removed)</li>
+                    <li>매크로 확장 (#define)</li>
+                    <li>헤더 파일 붙여넣기 (#include)</li>
+                </ul>
+                <p style="margin-top: auto; color: #ff5f56;"><i class="fa-solid fa-triangle-exclamation"></i> 코드 10줄이 800줄 이상으로 늘어납니다.</p>
+            </div>
+            <div>
+                <h3>2. 컴파일 (Compilation)</h3>
+                <p style="font-family: 'JetBrains Mono'; color: #8b949e; font-size: 16px;">gcc -S hello.i -o hello.s</p>
+                <ul>
+                    <li>C언어를 <strong>어셈블리어</strong>로 번역</li>
+                    <li>여전히 사람이 읽을 수 있는 텍스트</li>
+                    <li>논리(Logic)가 명령어(Instruction)가 되는 순간</li>
+                </ul>
+                <p style="margin-top: auto; color: #00ff41;"><i class="fa-solid fa-eye"></i> 아직은 읽을 수 있습니다!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 5: Deep Dive 3 & 4 -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">3단계 & 4단계: 바이너리와 링킹</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>3. 어셈블 (Assembly)</h3>
+                <p style="font-family: 'JetBrains Mono'; color: #8b949e; font-size: 16px;">gcc -c hello.s -o hello.o</p>
+                <ul>
+                    <li>어셈블리어를 <strong>기계어(Machine Code)</strong>로 변환</li>
+                    <li>바이너리 포맷 (0과 1)</li>
+                    <li>텍스트 에디터로 열면 깨져 보임</li>
+                </ul>
+            </div>
+            <div>
+                <h3>4. 링킹 (Linking)</h3>
+                <p style="font-family: 'JetBrains Mono'; color: #8b949e; font-size: 16px;">gcc hello.o -o hello</p>
+                <ul>
+                    <li>내 코드와 라이브러리(Library) 병합</li>
+                    <li>외부 함수 연결 (예: printf)</li>
+                    <li><strong>Static vs Dynamic</strong> 링킹은 훗날 해킹의 핵심 요소</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 6: Godbolt (Fixed Layout) -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">강력한 도구: Compiler Explorer</h2>
+    <div class="content-area">
+        <div class="image-right-layout">
+            <div class="bullet-list">
+                <ul>
+                    <li><i class="fa-solid fa-bolt"></i> <div>C코드에서 어셈블리로 <strong>실시간 번역</strong>합니다.</div></li>
+                    <li><i class="fa-solid fa-palette"></i> <div><strong>색상 강조</strong>를 통해 C 코드의 어느 부분이 어떤 어셈블리가 되는지 보여줍니다.</div></li>
+                    <li><i class="fa-solid fa-microchip"></i> <div><strong>컴파일러 최적화</strong>를 이해하는 데 필수적입니다.</div></li>
+                </ul>
+            </div>
+            <!-- Mock Editor Diagram -->
+            <div class="mock-editor">
+                <div class="editor-pane">
+                    <div class="pane-header">test.c</div>
+                    <div class="pane-content">
+                        <span class="c-syntax-keyword">int</span> main() {<br>
+                        &nbsp;&nbsp;<span class="c-syntax-keyword">return</span> <span class="c-syntax-num">10</span>;<br>
+                        }
+                    </div>
+                </div>
+                <div class="editor-pane">
+                    <div class="pane-header">test.s (Assembly)</div>
+                    <div class="pane-content">
+                        main:<br>
+                        &nbsp;&nbsp;<span class="asm-syntax-instr">push</span> <span class="asm-syntax-reg">rbp</span><br>
+                        &nbsp;&nbsp;<span class="asm-syntax-instr">mov</span> <span class="asm-syntax-reg">rbp</span>, <span class="asm-syntax-reg">rsp</span><br>
+                        &nbsp;&nbsp;<span class="asm-syntax-instr">mov</span> <span class="asm-syntax-reg">eax</span>, <span class="c-syntax-num">10</span> <span class="comment"># Return 10</span><br>
+                        &nbsp;&nbsp;<span class="asm-syntax-instr">pop</span> <span class="asm-syntax-reg">rbp</span><br>
+                        &nbsp;&nbsp;<span class="asm-syntax-instr">ret</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 7: Registers Table -->
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">참고: x86_64 레지스터 (Registers)</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>레지스터</th>
+                        <th>역할 (Role)</th>
+                        <th>32-bit 이름</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: #00ff41;">RAX</td>
+                        <td>리턴 값 / 산술 연산 (Return Value)</td>
+                        <td>EAX</td>
+                    </tr>
+                    <tr>
+                        <td>RBX</td>
+                        <td>베이스 포인터 (Base Pointer - General)</td>
+                        <td>EBX</td>
+                    </tr>
+                    <tr>
+                        <td>RCX</td>
+                        <td>카운터 (Counter - Loops)</td>
+                        <td>ECX</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #ff5f56;">RSP</td>
+                        <td>스택 포인터 (Stack Pointer - Top)</td>
+                        <td>ESP</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #ff5f56;">RBP</td>
+                        <td>베이스 포인터 (Base Pointer - Frame)</td>
+                        <td>EBP</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #00ff41;">RIP</td>
+                        <td>명령어 포인터 (Instruction Pointer)</td>
+                        <td>EIP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 8: Day 2 Intro -->
+<div class="slide-container" id="slide8">
+    <div class="section-title-layout">
+        <h2 style="color: #00ff41;">DAY 2</h2>
+        <h1>Data Representation</h1>
+        <hr style="border-color: #30363d; width: 100px; margin: 30px auto;">
+        <p>비트(Bits), 바이트(Bytes), 그리고 정수의 취약점</p>
+    </div>
+</div>
+
+<!-- Slide 9: Concepts -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">핵심 개념 (Core Concepts)</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-1"></i><i class="fa-solid fa-0"></i></div>
+                <h3>2의 보수 (Two's Complement)</h3>
+                <p>컴퓨터가 음수를 저장하는 법.<br>MSB=1 이면 음수입니다.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-right-left"></i></div>
+                <h3>엔디안 (Endianness)</h3>
+                <p>메모리 저장 순서.<br>x86은 리틀 엔디안(역순)을 씁니다.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-bomb" style="color: #ff5f56;"></i></div>
+                <h3>오버플로우 (Overflow)</h3>
+                <p>숫자가 너무 커지면,<br>가장 작은 음수로 돌아가버립니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Endianness Visual (CSS Diagram) -->
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">리틀 엔디안 (Little Endian)</h2>
+    <div class="content-area">
+        <div class="image-right-layout">
+            <div class="bleed-text-side">
+                <h3>저장 방식의 차이</h3>
+                <p>Intel/AMD CPU는 <strong>가장 낮은 바이트(LSB)</strong>부터 먼저 저장합니다.</p>
+                <p style="font-family: 'JetBrains Mono'; margin-top: 20px;">값 (Value): <span style="color:#00ff41">0x</span>12345678</p>
+                <p style="font-family: 'JetBrains Mono';">메모리 (Memory): 78 56 34 12</p>
+                <p style="margin-top:20px; color:#ff5f56; font-size: 18px;">⚠️ 해킹 시 메모리 주소를 거꾸로 입력해야 합니다!</p>
+            </div>
+            
+            <div class="memory-visual-container">
+                <h4 style="margin-bottom: 0;">Memory Address (Low → High)</h4>
+                <div class="memory-row">
+                    <div class="byte-box">
+                        <span class="byte-val">78</span>
+                        <span class="byte-addr">0x00</span>
+                    </div>
+                    <div class="byte-box">
+                        <span class="byte-val">56</span>
+                        <span class="byte-addr">0x01</span>
+                    </div>
+                    <div class="byte-box">
+                        <span class="byte-val">34</span>
+                        <span class="byte-addr">0x02</span>
+                    </div>
+                    <div class="byte-box">
+                        <span class="byte-val">12</span>
+                        <span class="byte-addr">0x03</span>
+                    </div>
+                </div>
+                <div class="arrow-label">
+                    <span>LSB (Start)</span>
+                    <span>MSB (End)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Integer Overflow -->
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">정수 오버플로우 (Integer Overflow)</h2>
+    <div class="content-area">
+        <div class="highlight-numbers-layout">
+            <div id="formula-container">
+                <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                  <mrow>
+                    <mi>MAX_INT</mi>
+                    <mo>+</mo>
+                    <mn>1</mn>
+                    <mo>=</mo>
+                    <mi>MIN_INT</mi>
+                  </mrow>
+                </math>
+            </div>
+            <div class="highlight-number">-2147483648</div>
+            <div class="highlight-label">2,147,483,647에 1을 더한 결과</div>
+            <p style="margin-top: 30px; max-width: 800px;">게임에서 아이템 22억 개를 사면 가격이 음수가 됩니다. 상점이 오히려 돈을 줍니다.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 12: Mission (Updated) -->
+<div class="slide-container" id="slide12">
+    <h2 class="slide-title">1주차 미션 (Mission)</h2>
+    <div class="content-area">
+        <div class="bullet-list" style="margin: 0 auto; width: 80%;">
+            <ul>
+                <li><i class="fa-brands fa-linux"></i> <strong>WSL (Kali Linux)</strong> 설치하기</li>
+                <li><i class="fa-solid fa-terminal"></i> 도구 설치: <code>sudo apt install build-essential gcc gdb</code></li>
+                <li><i class="fa-solid fa-code"></i> "Hello World"를 4단계(`-E`, `-S`, `-c`, `-o`)로 수동 컴파일 해보기</li>
+                <li><i class="fa-solid fa-magnifying-glass"></i> <strong>Godbolt.org</strong>에서 어셈블리어 읽는 연습하기</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
