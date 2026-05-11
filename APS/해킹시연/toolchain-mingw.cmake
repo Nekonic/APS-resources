@@ -12,3 +12,6 @@ set(CMAKE_FIND_ROOT_PATH /usr/i686-w64-mingw32)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+target_link_options(gomoku PRIVATE "-mwindows")
+target_link_options(gomoku PRIVATE "-static" "-static-libgcc" "-static-libstdc++" "-Wl,-Bstatic" "-lstdc++" "-lpthread" "-Wl,-Bdynamic")
