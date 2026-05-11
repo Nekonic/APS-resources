@@ -18,3 +18,6 @@ target_link_options(gomoku PRIVATE
 set_target_properties(gomoku PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
+
+target_link_options(gomoku PRIVATE "-mwindows")
+target_link_options(gomoku PRIVATE "-static" "-static-libgcc" "-static-libstdc++" "-Wl,-Bstatic" "-lstdc++" "-lpthread" "-Wl,-Bdynamic")
